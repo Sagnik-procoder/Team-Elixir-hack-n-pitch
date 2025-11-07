@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Hunger Dashboard - Agentic AI for SDGs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Import the consistent Inter font family */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display.swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #2d3748;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 75%);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 1200px; /* Wider container for dashboards */
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            /* Add relative and overflow-hidden for background images */
+            position: relative; 
+            overflow: hidden;
+            /* Ensure cards in the same row grow to the same height */
+            height: 100%; 
+        }
+        /* Chat bubble styles */
+        .chat-bubble {
+            border-radius: 1rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .chat-user {
+            background-color: #22c55e; /* Green */
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 0.25rem;
+        }
+        .chat-ai {
+            background-color: #f3f4f6; /* Gray-100 */
+            color: #1f2937;
+            align-self: flex-start;
+            border-bottom-left-radius: 0.25rem;
+        }
+        /* Style for the file input */
+        input[type="file"]::file-selector-button {
+            padding: 0.5rem 1rem;
+            background-color: #f3f4f6;
+            color: #374151;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        input[type="file"]::file-selector-button:hover {
+            background-color: #e5e7eb;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <header class="flex items-center justify-between mb-10">
+        <div class="flex items-center space-x-3">
+            <i class="fas fa-globe-americas text-3xl text-blue-600"></i>
+            <h1 class="text-3xl font-bold text-gray-800">Agentic AI for SDGs</h1>
+        </div>
+        
+        <nav class="flex flex-wrap gap-4 text-gray-600 font-medium">
+            <a href="index.html#home" class="hover:text-indigo-500 transition-colors">Home</a>
+            <a href="index.html#sdg-grid" class="hover:text-indigo-500 transition-colors">SDG Goals</a>
+            <a href="about.html" class="hover:text-indigo-500 transition-colors">About Us</a>
+            <a href="contact.html" class="hover:text-indigo-500 transition-colors">Contact Us</a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto space-y-12">
+
+        <section id="home" class="card p-8 bg-green-50 shadow-xl border-b-4 border-green-500">
+            <div class="relative z-10 flex flex-col md:flex-row items-center gap-6">
+                <div class="flex-shrink-0">
+                    <div class="w-32 h-32 rounded-full shadow-inner overflow-hidden border-4 border-green-200">
+                        <img src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/07/13/15/istock-619643870.jpg" alt="Zero Hunger" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 leading-tight">Zero Hunger Dashboard</h1>
+                    <p class="text-gray-600 mt-2 max-w-3xl">(SDG 2: Smart Farming & Food Distribution)</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <section class="card p-8 bg-white">
+                <div class="absolute inset-0 opacity-20 z-0">
+                    <img src="https://vlsci.com/wp-content/uploads/2022/07/melissa-askew-y4xZxzN754M-unsplash-scaled.jpg" alt="Faded farming background" class="w-full h-full object-cover">
+                </div>
+
+                <div class="relative z-10 flex flex-col h-full">
+                    <h2 class="text-2xl font-bold text-gray-700 mb-4">Crop Health Agent</h2>
+                    <p class="text-sm text-gray-500 mb-6">Upload a photo of your crop. Our agent will identify diseases/pests and recommend action.</p>
+                    
+                    <form id="crop-health-form">
+                        <div class="space-y-4">
+                            <div>
+                                <label for="crop-image" class="block text-gray-700 font-medium mb-1">Upload Crop Image <span class="text-red-500">*</span></label>
+                                <img id="crop-image-preview" src="https://placehold.co/600x400/f3f4f6/9ca3af?text=Upload+crop+image" alt="Crop preview" class="w-full h-48 object-cover rounded-lg border border-gray-300 mb-2">
+                                <input type="file" id="crop-image" class="w-full p-2 border border-gray-300 rounded-lg text-sm text-gray-500" accept="image/*" required>
+                            </div>
+                            <div>
+                                <label for="crop-symptoms" class="block text-gray-700 font-medium mb-1">Observed Symptoms</label>
+                                <textarea id="crop-symptoms" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g., 'White powdery spots on leaves', 'Yellowing and wilting'"></textarea>
+                            </div>
+                            <button type="submit" class="w-full px-8 py-3 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition-colors text-lg shadow-lg">
+                                <i class="fas fa-robot mr-2"></i> Analyze Crop Health
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section class="card p-8 bg-white">
+                <div class="absolute inset-0 opacity-20 z-0">
+                    <img src="https://lh6.googleusercontent.com/proxy/eeVcywdD-aGrIoRqqgH0k1hrLceLLbWHsxXLa6Db_mjIcQEieieNQzyBD7s6n0NKhkRTBaJ-N5KGKw" alt="Faded food background" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="relative z-10 flex flex-col h-full">
+                    <h2 class="text-2xl font-bold text-gray-700 mb-4">Surplus Food Agent</h2>
+                    <p class="text-sm text-gray-500 mb-6">Report surplus food. Our agent will instantly contact nearby NGOs for pickup.</p>
+                    
+                    <form id="surplus-form">
+                        <div class="space-y-4">
+                            <div>
+                                <label for="food-type" class="block text-gray-700 font-medium mb-1">Type of Food</label>
+                                <select id="food-type" class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-green-500">
+                                    <option value="perishable">Perishable (e.g., cooked meals, fruits)</option>
+                                    <option value="non-perishable">Non-Perishable (e.g., canned, grains)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="food-quantity" class="block text-gray-700 font-medium mb-1">Estimated Quantity (e.g., "Feeds 50 people")</label>
+                                <input type="text" id="food-quantity" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                            </div>
+                            <div>
+                                <label for="pickup-location" class="block text-gray-700 font-medium mb-1">Pickup Location</label>
+                                <input type="text" id="pickup-location" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                            </div>
+                            <button type="submit" class="w-full px-8 py-3 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition-colors text-lg shadow-lg">
+                                <i class="fas fa-truck mr-2"></i> Report Surplus
+                            </button>
+                        </div>
+                    </form>
+                    <div id="surplus-agent-status" class="mt-6 space-y-3 hidden bg-green-50 p-6 rounded-lg border border-green-200 shadow-inner flex-grow">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card p-8 bg-white">
+                <div class="absolute inset-0 opacity-25 z-0">
+                    <img src="https://owlcation.com/.image/w_3840,q_auto:good,c_limit/MjAzNTU3NDU0MTE3MDIxMzg3/a-comprehensive-guide-to-crop-identification.jpg" alt="Faded analysis background" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="relative z-10 flex flex-col h-full">
+                    <h2 class="text-2xl font-bold text-gray-700 mb-4">Agent Analysis Report</h2>
+                    <div id="crop-agent-status" class="space-y-3 bg-green-50 p-6 rounded-lg border border-green-200 shadow-inner flex-grow h-full">
+                        <div class="flex items-center text-gray-500">
+                            <i class="fas fa-info-circle mr-3 text-lg"></i>
+                            <span class="font-medium">Awaiting crop health report...</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card p-8 bg-white">
+                <div class="absolute inset-0 opacity-25 z-0">
+                    <img src="https://inc42.com/wp-content/uploads/2019/11/autonxt-facebook-1.jpg" alt="Faded chat background" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="relative z-10 flex flex-col h-full">
+                    <h2 class="text-2xl font-bold text-gray-700 mb-4">Farming AI Assistant</h2>
+                    <p class="text-sm text-gray-500 mb-4">Ask our agent any farming-related questions.</p>
+                    
+                    <div id="chat-window" class="h-64 overflow-y-auto bg-gray-100 rounded-lg p-4 mb-4 flex flex-col space-y-2 flex-grow">
+                        <div class="chat-bubble chat-ai">
+                            Hello! How can I help with your farming questions today?
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <input type="text" id="chat-input" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ask about crops, soil, or pests...">
+                        <button id="send-chat-btn" class="px-5 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <footer class="text-center p-6 mt-8">
+            <div class="border-t border-gray-200 pt-6">
+                <h3 class="text-xl font-bold text-gray-800">Agentic AI for SDGs</h3>
+                <p class="text-sm text-gray-500 mt-1">Autonomous Systems for a Sustainable Future.</p>
+                <div class="flex justify-center space-x-4 text-gray-600 mt-4 text-xl">
+                    <a href="#" class="hover:text-indigo-500 transition-colors"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-indigo-500 transition-colors"><i class="fab fa-github"></i></a>
+                    <a href="#" class="hover:text-indigo-500 transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <p class="text-sm text-gray-400 mt-4">© 2025 AI for SDGs Initiative. All rights reserved.</p>
+        </footer>
+
+    </main>
+    
+    <script>
+        // --- Image Preview Logic ---
+        const cropImageInput = document.getElementById('crop-image');
+        const cropImagePreview = document.getElementById('crop-image-preview');
+
+        cropImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                cropImagePreview.src = URL.createObjectURL(file);
+            }
+        });
+
+        // --- Crop Health Agent Logic ---
+        const cropHealthForm = document.getElementById('crop-health-form');
+        const cropAgentStatusDiv = document.getElementById('crop-agent-status');
+
+        cropHealthForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const symptoms = document.getElementById('crop-symptoms').value;
+            const cropFile = document.getElementById('crop-image').files[0];
+
+            if (!cropFile) {
+                alert("Please upload an image of your crop.");
+                return;
+            }
+
+            // 1. Set loading state
+            cropAgentStatusDiv.innerHTML = `
+                <div class="flex items-center text-yellow-600">
+                    <i class="fas fa-robot fa-spin mr-3 text-lg"></i>
+                    <span class="font-medium">Agent is processing report...</span>
+                </div>
+                <p class="text-sm text-gray-500 pl-8">PERCEPTION: Analyzing image pixels and symptom data...</p>
+            `;
+
+            // 2. Simulate agent action
+            setTimeout(() => {
+                let diagnosis = "Unidentified Issue";
+                let severity = "Unknown";
+                let action = "Further analysis required or consult a local expert.";
+                let alert = "No immediate alert to local bodies needed based on current data.";
+
+                if (symptoms.toLowerCase().includes("powdery spots") || symptoms.toLowerCase().includes("white spots")) {
+                    diagnosis = "Powdery Mildew";
+                    severity = "Moderate";
+                    action = "Apply a neem oil solution weekly, improve air circulation.";
+                    alert = "Severity not critical. Monitor for spread.";
+                } else if (symptoms.toLowerCase().includes("yellowing") || symptoms.toLowerCase().includes("wilting")) {
+                    diagnosis = "Nitrogen Deficiency or Water Stress";
+                    severity = "Low to Moderate";
+                    action = "Check soil moisture; apply a balanced fertilizer if soil is dry.";
+                } else if (symptoms.toLowerCase().includes("blight") || symptoms.toLowerCase().includes("large brown spots") || symptoms.toLowerCase().includes("rot")) {
+                    diagnosis = "Late Blight / Fungal Rot";
+                    severity = "HIGH";
+                    action = "Immediately remove infected plants, apply a copper-based fungicide, and inform neighbors.";
+                    alert = "Severity HIGH! Automatically alerting local agricultural extension office of potential blight outbreak.";
+                } else if (symptoms.toLowerCase().includes("holes") || symptoms.toLowerCase().includes("chewed leaves")) {
+                    diagnosis = "Insect Pest Infestation";
+                    severity = "Moderate";
+                    action = "Identify specific pest (e.g., caterpillars, slugs) and apply appropriate organic pesticide or manual removal.";
+                    alert = "Severity not critical. Local pest management advice may be beneficial.";
+                }
+                
+                cropAgentStatusDiv.innerHTML = `
+                    <div class="flex items-center text-green-700">
+                        <i class="fas fa-check-circle mr-3 text-lg"></i>
+                        <span class="font-bold text-lg">Analysis Complete</span>
+                    </div>
+                    <ul class="list-none text-gray-700 pl-2 space-y-2 mt-2 text-sm">
+                        <li><strong class="text-gray-900">Diagnosis (Perception):</strong> ${diagnosis}</li>
+                        <li><strong class="text-gray-900">Severity (Planning):</strong> <span class="${severity.includes('HIGH') ? 'text-red-600 font-bold' : ''}">${severity}</span></li>
+                        <li><strong class="text-gray-900">Recommended Action (Execution):</strong> ${action}</li>
+                        <li><strong class="text-gray-900">Automated Alert (Execution):</strong> ${alert}</li>
+                    </ul>
+                `;
+            }, 3000);
+        });
+
+        // --- Surplus Food Reporting Logic ---
+        const surplusForm = document.getElementById('surplus-form');
+        const surplusAgentStatusDiv = document.getElementById('surplus-agent-status');
+
+        surplusForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            surplusAgentStatusDiv.classList.remove('hidden');
+
+            const foodType = document.getElementById('food-type').value;
+            const foodQuantity = document.getElementById('food-quantity').value;
+            const pickupLocation = document.getElementById('pickup-location').value;
+
+            // 1. Set loading state
+            surplusAgentStatusDiv.innerHTML = `
+                <div class="flex items-center text-yellow-600">
+                    <i class="fas fa-robot fa-spin mr-3 text-lg"></i>
+                    <span class="font-medium">Agent is processing report...</span>
+                </div>
+                <p class="text-sm text-gray-500 pl-8">PLANNING: Analyzing food type, quantity, and nearest NGOs...</p>
+            `;
+
+            // 2. Simulate agent action
+            setTimeout(() => {
+                surplusAgentStatusDiv.innerHTML = `
+                    <div class="flex items-center text-green-700">
+                        <i class="fas fa-check-circle mr-3 text-lg"></i>
+                        <span class="font-bold text-lg">Action Complete</span>
+                    </div>
+                    <ul class="list-disc list-inside text-gray-700 pl-2 space-y-1 mt-2 text-sm">
+                        <li>EXECUTION: Contacted 'City Harvest NGO' (2.5km away) via automated email for ${foodType} pickup.</li>
+                        <li>EXECUTION: Contacted 'FoodSavers Foundation' (4.1km away) via automated email for ${foodType} pickup.</li>
+                        <li>MEASUREMENT: Logged donation of "${foodQuantity}" from "${pickupLocation}" for tracking.</li>
+                        <li>You will receive an update once an NGO confirms pickup.</li>
+                    </ul>
+                `;
+            }, 2500);
+
+            surplusForm.reset();
+        });
+
+        // --- Farming AI Assistant Logic ---
+        const chatWindow = document.getElementById('chat-window');
+        const chatInput = document.getElementById('chat-input');
+        const sendChatBtn = document.getElementById('send-chat-btn');
+
+        const sendChat = () => {
+            const query = chatInput.value.trim();
+            if (!query) return;
+
+            const userBubble = document.createElement('div');
+            userBubble.className = "chat-bubble chat-user";
+            userBubble.textContent = query;
+            chatWindow.appendChild(userBubble);
+
+            chatInput.value = "";
+            chatWindow.scrollTop = chatWindow.scrollHeight; 
+
+            setTimeout(() => {
+                const aiBubble = document.createElement('div');
+                aiBubble.className = "chat-bubble chat-ai";
+                let response = "I'm sorry, I'm not sure about that. Can you rephrase or ask about specific farming practices?";
+                if (query.toLowerCase().includes("soil")) {
+                    response = "For clay soil, I recommend adding organic compost to improve drainage. For sandy soil, peat moss can help retain moisture. What kind of soil are you working with?";
+                } else if (query.toLowerCase().includes("crop rotation") || query.toLowerCase().includes("planting")) {
+                    response = "Crop rotation is essential. For example, planting legumes (like beans) after corn can replenish nitrogen in the soil, improving yield for the next crop.";
+                } else if (query.toLowerCase().includes("pest") || query.toLowerCase().includes("disease")) {
+                    response = "If you have a specific pest or disease, please use the 'Crop Health Agent' tool on this page. Upload a photo and describe symptoms for a detailed analysis and recommendations.";
+                } else if (query.toLowerCase().includes("fertilizer") || query.toLowerCase().includes("nutrients")) {
+                    response = "The best fertilizer depends on your soil test results and crop needs. Generally, N-P-K (Nitrogen, Phosphorus, Potassium) ratios are key. Nitrogen promotes leaf growth, phosphorus helps roots and flowers, and potassium supports overall plant health.";
+                } else if (query.toLowerCase().includes("irrigation") || query.toLowerCase().includes("water")) {
+                    response = "Efficient irrigation methods like drip irrigation can save water and deliver it directly to the roots. Consider soil type and crop water requirements to avoid over or under-watering.";
+                }
+                aiBubble.textContent = response;
+                chatWindow.appendChild(aiBubble);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }, 1500);
+        };
+
+        sendChatBtn.addEventListener('click', sendChat);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendChat();
+            }
+        });
+
+    </script>
+
+</body>
+</html>
