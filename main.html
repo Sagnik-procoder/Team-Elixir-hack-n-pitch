@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Import the consistent Inter font family */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display.swap');
         body {
             font-family: 'Inter', sans-serif;
             color: #2d3748;
@@ -25,70 +25,10 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        /* We keep the card hover, but the new layout doesn't use the inner :hover */
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2), 0 6px 10px -3px rgba(0, 0, 0, 0.1);
         }
-        .circle-container {
-            position: relative;
-            width: 140px; /* Slightly smaller for better visual balance */
-            height: 140px;
-            min-width: 140px; /* Prevent shrinking on smaller screens */
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 4px solid; /* Color will be dynamic */
-            overflow: hidden; /* Ensure image stays within circle */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .circle-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Cover the entire circle */
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1; /* Ensure image is behind text/icon */
-        }
-        .circle-content {
-            position: relative;
-            z-index: 2; /* Ensure content is above image */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white; /* Default text color over image */
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
-        }
-        .sdg-info-box {
-            background-color: #ffffff;
-            border-radius: 1.5rem; /* Rounded corners for the box */
-            padding: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Lighter shadow for the inner box */
-            flex-grow: 1; /* Allow the box to take available space */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border: 1px solid; /* Dynamic border color */
-        }
-
-        /* Specific colors for SDG 3 */
-        .sdg3 .circle-container { border-color: #ef4444; background-color: #fef2f2; } /* red-500, red-50 */
-        .sdg3 .circle-content { color: #dc2626; } /* red-600 */
-        .sdg3 .sdg-info-box { border-color: #fca5a5; } /* red-300 */
-        .sdg3 .sdg-dashboard-button { background-color: #ef4444; } /* red-500 */
-        .sdg3 .sdg-dashboard-button:hover { background-color: #dc2626; } /* red-600 */
-
-        /* Specific colors for SDG 2 */
-        .sdg2 .circle-container { border-color: #22c55e; background-color: #f0fdf4; } /* green-500, green-50 */
-        .sdg2 .circle-content { color: #16a34a; } /* green-600 */
-        .sdg2 .sdg-info-box { border-color: #86efac; } /* green-300 */
-        .sdg2 .sdg-dashboard-button { background-color: #22c55e; } /* green-500 */
-        .sdg2 .sdg-dashboard-button:hover { background-color: #16a34a; } /* green-600 */
-
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -120,35 +60,35 @@
                 <p class="text-gray-500">Select a challenge to view the agentic system dashboard.</p>
             </div>
             
-            <div class="max-w-5xl mx-auto space-y-12"> <div class="flex flex-col md:flex-row items-center md:items-start gap-6 sdg3">
-                    <div class="circle-container">
-                        <img src="https://via.placeholder.com/140/ef4444/ffffff?text=HEALTH" alt="Good Health & Well-being" class="absolute inset-0 object-cover w-full h-full">
-                        <div class="circle-content">
-                            <i class="fas fa-heartbeat text-5xl mb-1"></i>
-                            <h4 class="text-lg font-bold">SDG 3</h4>
+            <div class="max-w-3xl mx-auto space-y-8">
+
+                <div class="card flex flex-col md:flex-row items-center gap-6 p-6 lg:p-8 bg-red-50 shadow-xl border-b-4 border-red-500">
+                    <div class="flex-shrink-0 flex flex-col items-center text-center">
+                        <div class="w-32 h-32 rounded-full shadow-inner overflow-hidden border-4 border-red-200">
+                            <img src="https://www.unicef.org/sites/default/files/styles/press_release_feature/public/UN0324716.JPG.webp?itok=EEiHLTX5" alt="Good Health and Well-being" class="w-full h-full object-cover">
                         </div>
+                        <h4 class="text-lg font-bold text-red-600 mt-3">SDG 3</h4>
                     </div>
-                    <div class="sdg-info-box text-center md:text-left">
+                    <div class="flex-1 text-center md:text-left">
                         <h3 class="text-2xl font-bold text-gray-800">Good Health & Well-being</h3>
-                        <p class="text-base text-gray-600 mt-2 mb-4">Focuses on ensuring healthy lives and promoting well-being for all at all ages, tackling diseases, and ensuring access to healthcare services.</p>
-                        <a href="health-dashboard.html" class="sdg-dashboard-button inline-block px-6 py-2 text-white rounded-full text-sm font-medium transition-colors shadow-md">
+                        <p class="text-base text-gray-600 mt-2 mb-6">Proactive wellness agents, outbreak reporting, and ethical escalation.</p>
+                        <a href="health-dashboard.html" class="inline-block px-6 py-2 bg-red-500 text-white rounded-full text-sm font-medium hover:bg-red-600 transition-colors shadow-lg">
                             View Dashboard
                         </a>
                     </div>
                 </div>
 
-                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 sdg2">
-                    <div class="circle-container">
-                        <img src="https://via.placeholder.com/140/22c55e/ffffff?text=HUNGER" alt="Zero Hunger" class="absolute inset-0 object-cover w-full h-full">
-                        <div class="circle-content">
-                            <i class="fas fa-seedling text-5xl mb-1"></i>
-                            <h4 class="text-lg font-bold">SDG 2</h4>
+                <div class="card flex flex-col md:flex-row items-center gap-6 p-6 lg:p-8 bg-green-50 shadow-xl border-b-4 border-green-500">
+                    <div class="flex-shrink-0 flex flex-col items-center text-center">
+                        <div class="w-32 h-32 rounded-full shadow-inner overflow-hidden border-4 border-green-200">
+                            <img src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/07/13/15/istock-619643870.jpg" alt="Zero Hunger" class="w-full h-full object-cover">
                         </div>
+                        <h4 class="text-lg font-bold text-green-600 mt-3">SDG 2</h4>
                     </div>
-                    <div class="sdg-info-box text-center md:text-left">
+                    <div class="flex-1 text-center md:text-left">
                         <h3 class="text-2xl font-bold text-gray-800">Zero Hunger</h3>
-                        <p class="text-base text-gray-600 mt-2 mb-4">Aims to end hunger, achieve food security and improved nutrition, and promote sustainable agriculture globally by 2030.</p>
-                        <a href="farming-dashboard.html" class="sdg-dashboard-button inline-block px-6 py-2 text-white rounded-full text-sm font-medium transition-colors shadow-md">
+                        <p class="text-base text-gray-600 mt-2 mb-6">Autonomous crop monitoring, smart farming, and resource allocation.</p>
+                        <a href="farming-dashboard.html" class="inline-block px-6 py-2 bg-green-600 text-white rounded-full text-sm font-medium hover:bg-green-700 transition-colors shadow-lg">
                             View Dashboard
                         </a>
                     </div>
