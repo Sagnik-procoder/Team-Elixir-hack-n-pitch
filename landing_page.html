@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus - Select Your Role</title> 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Import the consistent Inter font family */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display.swap');
+        
+        /* --- DARK MODE STYLES --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Dark gradient background */
+            color: #cbd5e1; /* text-slate-300 */
+            background: linear-gradient(135deg, #0f172a 0%, #020617 75%); /* slate-900 to slate-950 */
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+        .container {
+            max-width: 1200px; 
+        }
+        .card {
+            /* Dark card background */
+            background-color: #1e293b; /* slate-800 */
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            /* Hover border animation */
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2), 0 6px 10px -3px rgba(0, 0, 0, 0.1), 0 0 0 2px #818cf8; /* indigo-400 */
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Minimal Header with Logo Only -->
+    <header class="flex items-center justify-between mb-10">
+        <div class="flex items-center space-x-3">
+            <img src="nexus.png" alt="Nexus company logo" class="h-16 w-50">
+        </div>
+        <!-- No navigation here, as user is not logged in -->
+    </header>
+
+    <main class="container mx-auto space-y-12">
+
+        <!-- Page Title -->
+        <div class="text-center">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-100 leading-tight">Welcome to Nexus</h1>
+            <p class="text-lg text-gray-400 mt-2">Please select your role to continue.</p>
+        </div>
+
+        <!-- Role Selection Card -->
+        <section class="card p-8 bg-slate-800 relative overflow-hidden mt-4" id="role-grid">
+            
+            <!-- Faded Background Image -->
+            <div class="absolute inset-0 opacity-20"> 
+                <img src="https://sdgresources.relx.com/sites/default/files/styles/sus_event_header_1080p/public/events/header-image/sdg_inspiration_day_2025-background.png?itok=QxuzyFTM" 
+                     alt="Faded Background" 
+                     class="w-full h-full object-cover">
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-10">
+                <div class="max-w-3xl mx-auto space-y-8">
+
+                    <!-- Option 1: Normal User -->
+                    <div class="card flex flex-col md:flex-row items-center gap-6 p-6 lg:p-8 bg-slate-900 shadow-xl border border-indigo-900 border-b-4 border-indigo-500">
+                        <div class="flex-shrink-0 flex flex-col items-center text-center">
+                            <div class="w-32 h-32 rounded-full shadow-inner overflow-hidden border-4 border-indigo-700">
+                                <!-- Image Placeholder for User -->
+                                <img src="https://docboss.com/wp-content/uploads/2025/06/computer-science-1331579_640-1.png" alt="User" class="w-full h-full object-cover opacity-80">
+                            </div>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="text-2xl font-bold text-gray-100">General User</h3>
+                            <p class="text-base text-gray-300 mt-2 mb-6">Report issues, get AI analysis, and find resources on health, food and waste management.</p>
+                            <!-- This button links to the main dashboard -->
+                            <a href="index.html" class="inline-block px-6 py-2 bg-indigo-600 text-white rounded-full text-sm font-medium hover:bg-indigo-700 transition-colors shadow-lg">
+                                Sign Up / Login
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Option 2: NGO Official -->
+                    <div class="card flex flex-col md:flex-row items-center gap-6 p-6 lg:p-8 bg-slate-900 shadow-xl border border-green-900 border-b-4 border-green-500">
+                        <div class="flex-shrink-0 flex flex-col items-center text-center">
+                            <div class="w-32 h-32 rounded-full shadow-inner overflow-hidden border-4 border-green-700">
+                                <!-- Image Placeholder for NGO -->
+                                <img src="https://cdn-icons-png.flaticon.com/512/8596/8596818.png" alt="NGO Official" class="w-full h-full object-cover opacity-80">
+                            </div>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="text-2xl font-bold text-gray-100">NGO Official</h3>
+                            <p class="text-base text-gray-300 mt-2 mb-6">Manage surplus food alerts, coordinate pickups, and update your status.</p>
+                            <a href="ngo-login.html" class="inline-block px-6 py-2 bg-green-600 text-white rounded-full text-sm font-medium hover:bg-green-700 transition-colors shadow-lg">
+                                Sign Up / Login
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Option 3: Doctor -->
+                    <div class="card flex flex-col md:flex-row items-center gap-6 p-6 lg:p-8 bg-slate-900 shadow-xl border border-red-900 border-b-4 border-red-500">
+                        <div class="flex-shrink-0 flex flex-col items-center text-center">
+                            <div class="w-32 h-32 rounded-full shadow-inner overflow-hidden border-4 border-red-700">
+                                <!-- Image Placeholder for Doctor -->
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRqR_UAu73sd2K4trK3e3_eU303ATuJ_SNG3wWbPrH7tUFqx2LliijHwWnQXOwzCElP8I&usqp=CAU" alt="Doctor" class="w-full h-full object-cover opacity-80">
+                            </div>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="text-2xl font-bold text-gray-100">Doctor</h3>
+                            <p class="text-base text-gray-300 mt-2 mb-6">Receive patient reports, manage appointments, and view regional health alerts.</p>
+                            <a href="doctor-login.html" class="inline-block px-6 py-2 bg-red-500 text-white rounded-full text-sm font-medium hover:bg-red-600 transition-colors shadow-lg">
+                                Sign Up / Login
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+        <!-- Minimal Footer -->
+        <footer class="text-center p-6 mt-8">
+            <div class="border-t border-gray-700 pt-6">
+                 <p class="text-sm text-gray-400 mt-1">Autonomous Systems for a Sustainable Future.</p>
+                <div class="flex justify-center space-x-4 text-gray-300 mt-4 text-xl">
+                    <a href="#" class="hover:text-indigo-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-indigo-400 transition-colors"><i class="fab fa-github"></i></a>
+                    <a href="#" class="hover:text-indigo-400 transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <p class="text-sm text-gray-500 mt-4">© 2025 AI for SDGs Initiative. All rights reserved.</p>
+        </footer>
+
+    </main>
+    
+</body>
+</html>
