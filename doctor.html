@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus - Community Login</title> 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Import the consistent Inter font family */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display.swap');
+        
+        /* --- DARK MODE STYLES --- */
+        html {
+            height: 100%;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #cbd5e1bd; /* text-slate-300 */
+            
+            /* Full page background image */
+            background-image: url('https://media.istockphoto.com/id/1555515663/photo/happy-portrait-group-and-doctors-for-healthcare-service-leadership-and-teamwork-in-hospital.jpg?s=612x612&w=0&k=20&c=TLjQ_2QSgCkG2GdfggIe9mMHuz28eD_zgjuwI9gw5KM=');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            
+            /* Use flex to center the content */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative; /* Needed for the overlay */
+        }
+        
+        /* Dark overlay for the background image */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+            z-index: 1; /* Place it on top of body bg, behind content */
+        }
+
+        .container {
+            max-width: 1200px; 
+            width: 100%;
+            flex-grow: 1; /* Allow container to grow and push footer down */
+            display: flex;
+            align-items: center; /* Vertically center content */
+            justify-content: center; /* Horizontally center content */
+            position: relative;
+            z-index: 2; /* Ensure content is above the overlay */
+        }
+        
+        header {
+            position: relative;
+            z-index: 2; /* Ensure header is above the overlay */
+        }
+        
+        /* "Glassmorphic" card style */
+        .card {
+            background-color: rgba(30, 41, 59, 0.75); /* slate-800 with 75% opacity */
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(71, 85, 105, 0.5); /* slate-600 border */
+            
+            /* Frosted glass effect */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            /* Hover border animation */
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2), 0 6px 10px -3px rgba(0, 0, 0, 0.1), 0 0 0 2px #818cf8; /* indigo-400 */
+        }
+        /* Dark mode for forms */
+        input[type="text"], input[type="email"], input[type="password"] {
+            background-color: #334155; /* slate-700 */
+            border-color: #475569; /* slate-600 */
+            color: #f1f5f9; /* slate-100 */
+            border-radius: 0.5rem;
+        }
+        input[type="text"]::placeholder, input[type="email"]::placeholder, input[type="password"]::placeholder {
+            color: #64748b; /* slate-500 */
+        }
+        /* Tab styles */
+        .tab-btn {
+            width: 50%;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            border-top-left-radius: 1.5rem; /* Match card radius */
+            border-top-right-radius: 1.5rem; /* Match card radius */
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .tab-active {
+            /* Make active tab slightly more transparent */
+            background-color: rgba(30, 41, 59, 0.75); /* slate-800 */
+            color: #ffffff;
+        }
+        .tab-inactive {
+            /* Make inactive tab more solid */
+            background-color: rgba(51, 65, 85, 0.9); /* slate-700 */
+            color: #94a3b8; /* slate-400 */
+        }
+        .tab-inactive:hover {
+            background-color: rgba(71, 85, 105, 0.9); /* slate-600 */
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <header class="flex items-center justify-between mb-10">
+        <div class="flex items-center space-x-3">
+            <img src="nexus.png" alt="Nexus company logo" class="h-16 w-50">
+        </div>
+    </header>
+
+    <!-- Main container is now a flex item to center the card -->
+    <main class="container mx-auto">
+        <div class="max-w-md mx-auto w-full">
+            <!-- Login/Sign Up Card -->
+            <div class="card">
+                <!-- Background image placeholder removed from here -->
+
+                <!-- Content -->
+                <div class="relative z-10">
+                    
+                    <!-- Tab Buttons -->
+                    <div class="flex">
+                        <div id="login-tab" class="tab-btn tab-active">Login</div>
+                        <div id="signup-tab" class="tab-btn tab-inactive">Sign Up</div>
+                    </div>
+
+                    <!-- Form Container -->
+                    <div class="p-8">
+                        
+                        <!-- Login Form (Visible by default) -->
+                        <form id="login-form" class="space-y-4">
+                            <h2 class="text-2xl font-bold text-white text-center">Community Login</h2>
+                            <div>
+                                <label for="login-email" class="block text-sm font-medium text-slate-300 mb-1">Email</label>
+                                <input type="email" id="login-email" class="w-full p-3" placeholder="you@example.com" required>
+                            </div>
+                            <div>
+                                <label for="login-password" class="block text-sm font-medium text-slate-300 mb-1">Password</label>
+                                <input type="password" id="login-password" class="w-full p-3" placeholder="••••••••" required>
+                            </div>
+                            <button type="submit" class="w-full px-6 py-3 bg-indigo-600 text-white rounded-full font-semibold hover:bg-indigo-700 transition-colors shadow-lg">
+                                Login
+                            </button>
+                        </form>
+
+                        <!-- Sign Up Form (Hidden by default) -->
+                        <form id="signup-form" class="space-y-4 hidden">
+                            <h2 class="text-2xl font-bold text-white text-center">Create Account</h2>
+                            <div>
+                                <label for="signup-name" class="block text-sm font-medium text-slate-300 mb-1">Full Name</label>
+                                <input type="text" id="signup-name" class="w-full p-3" placeholder="Your Name" required>
+                            </div>
+                            <div>
+                                <label for="signup-email" class="block text-sm font-medium text-slate-300 mb-1">Email</label>
+                                <input type="email" id="signup-email" class="w-full p-3" placeholder="you@example.com" required>
+                            </div>
+                            <div>
+                                <label for="signup-password" class="block text-sm font-medium text-slate-300 mb-1">Password</label>
+                                <input type="password" id="signup-password" class="w-full p-3" placeholder="••••••••" required>
+                            </div>
+                            <button type="submit" class="w-full px-6 py-3 bg-indigo-600 text-white rounded-full font-semibold hover:bg-indigo-700 transition-colors shadow-lg">
+                                Create Account
+                            </button>
+                        </form>
+
+                        <div id="form-message" class="mt-4 text-center text-green-400 hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
+    <script>
+        const loginTab = document.getElementById('login-tab');
+        const signupTab = document.getElementById('signup-tab');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const formMessage = document.getElementById('form-message');
+
+        // Switch to Login Tab
+        loginTab.addEventListener('click', () => {
+            loginTab.classList.add('tab-active');
+            loginTab.classList.remove('tab-inactive');
+            signupTab.classList.add('tab-inactive');
+            signupTab.classList.remove('tab-active');
+            
+            loginForm.classList.remove('hidden');
+            signupForm.classList.add('hidden');
+        });
+
+        // Switch to Sign Up Tab
+        signupTab.addEventListener('click', () => {
+            signupTab.classList.add('tab-active');
+            signupTab.classList.remove('tab-inactive');
+            loginTab.classList.add('tab-inactive');
+            loginTab.classList.remove('tab-active');
+            
+            signupForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+        });
+
+        // Handle Login Form (Simulated)
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formMessage.textContent = 'Logging in successfully...';
+            formMessage.classList.remove('hidden');
+            
+            // Simulate API call and redirect
+            setTimeout(() => {
+                window.location.href = "index.html"; // Redirect to main dashboard
+            }, 1500);
+        });
+
+        // Handle Sign Up Form (Simulated)
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formMessage.textContent = 'Account created successfully! Logging in...';
+            formMessage.classList.remove('hidden');
+
+            // Simulate API call and redirect
+            setTimeout(() => {
+                window.location.href = "index.html"; // Redirect to main dashboard
+            }, 1500);
+        });
+
+    </script>
+</body>
+</html>
